@@ -1,0 +1,9 @@
+# 本地 AI 模型权重（3.1GB，GitHub 单文件上限 100MB，随包提供不入库）
+星火同行_优化版_便携版(1)/runtime/models/
+
+# 103MB 双端版成片（超过 100MB 上限，改传 GitHub Release 附件）
+chuwangqing_pv/楚晚晴_角色PV_2min_1080p_双端版.mp4
+
+# Python 缓存
+__pycache__/
+*.pyc
