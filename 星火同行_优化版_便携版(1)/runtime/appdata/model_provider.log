@@ -1,0 +1,69 @@
+[2026-10-08 21:21:46] 方舟调用失败，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 doubao-seed-2-0-mini-260428（当前账号已鉴权通过）。
+[2026-10-08 21:22:35] 方舟调用失败，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 doubao-seed-2-0-mini-260428（当前账号已鉴权通过）。
+[2026-10-08 21:25:46] 方舟调用失败，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 doubao-seed-2-0-mini-260428（当前账号已鉴权通过）。
+[2026-10-08 21:26:16] 方舟调用失败，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 doubao-seed-2-0-mini-260428（当前账号已鉴权通过）。
+[2026-10-10 11:10:50] 方舟调用失败，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 doubao-seed-2-0-mini-260428（当前账号已鉴权通过）。
+[2026-10-12 16:07:46] 方舟调用失败，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 doubao-seed-2-0-mini-260428（当前账号已鉴权通过）。
+[2026-10-12 16:26:20] 主用模型不可用，已回退免费接口：本地模型服务返回错误（HTTP 502），请查看推理服务日志。
+[2026-10-12 16:26:20] 主用模型不可用，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 Qwen3.8-27B（当前账号已鉴权通过）。
+[2026-10-12 16:26:49] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:60950/v1//chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name Qwen3.8-27B --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 16:26:49] 主用模型不可用，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 Qwen3.8-27B（当前账号已鉴权通过）。
+[2026-10-12 16:27:04] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:49697/v1//chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name Qwen3.8-27B --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 16:27:04] 主用模型不可用，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 Qwen3.8-27B（当前账号已鉴权通过）。
+[2026-10-12 16:29:58] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:53928/v1//chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name Qwen3.8-27B --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 16:29:59] 主用模型不可用，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 Qwen3.8-27B（当前账号已鉴权通过）。
+[2026-10-12 20:44:22] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:50164/v1//chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name Qwen3.8-27B --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 20:44:22] 主用模型不可用，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 Qwen3.8-27B（当前账号已鉴权通过）。
+[2026-10-12 21:23:39] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:61381/v1//chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name Qwen3.8-27B --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 21:23:39] 主用模型不可用，已回退免费接口：模型尚未开通：请在火山方舟控制台「开通管理」中开通 Qwen3.8-27B（当前账号已鉴权通过）。
+[2026-10-12 21:32:17] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 21:32:51] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 21:33:08] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 22:13:22] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 22:18:43] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 22:29:27] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 22:29:57] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 22:32:43] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。
+[2026-10-12 22:33:01] 主用模型不可用，已回退免费接口：连不上本地模型服务（http://127.0.0.1:11434/v1/chat/completions）。请先启动推理服务：
+· vLLM：vllm serve <模型> --served-model-name qwen3.5:4b --port 8000
+· Ollama：ollama serve
+也可以在 model_config.json 里把 provider 改成 ark 或 pollinations 走云端。

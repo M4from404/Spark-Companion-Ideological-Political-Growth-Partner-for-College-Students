@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星火同行 · 思政闯关</title>
+<style>
+  :root{--red:#8e1b25;--red2:#b92d32;--gold:#d7a94b;--ink:#362b24;--muted:#83766b;--paper:#fffaf2;--line:#ecddc7;--green:#3e8162}
+  *{box-sizing:border-box}
+  html,body{min-height:100%;margin:0;font-family:"Microsoft YaHei","PingFang SC",sans-serif;color:var(--ink)}
+  body{background:radial-gradient(ellipse at 12% 5%,#f7e5c5 0,transparent 36%),linear-gradient(135deg,#fbf6eb,#f1e7d7)}
+  button{font:inherit}
+  .top{height:72px;display:flex;align-items:center;gap:26px;padding:0 6vw;background:#fffaf2e8;border-bottom:1px solid #eadbc4;box-shadow:0 4px 18px #6038120b}
+  .brand{font-weight:800;font-size:21px;color:var(--red);letter-spacing:1px;margin-right:auto}
+  .tag{font-size:13px;color:#9f7d43;letter-spacing:2px}
+  .back{border:1px solid #d8c5a7;background:#fff;border-radius:22px;padding:9px 17px;color:#6d4b3d;cursor:pointer}
+  .back:hover{border-color:var(--red);color:var(--red)}
+  main{width:min(1040px,92vw);margin:44px auto 70px}
+  .hero{padding:8px 0 30px}
+  .eyebrow{color:#a7803b;font-size:13px;letter-spacing:3px;font-weight:700}
+  h1{font-family:"STSong","SimSun",serif;color:var(--red);font-size:42px;letter-spacing:3px;margin:10px 0 12px}
+  .intro{font-size:16px;color:#77695d;line-height:1.8;max-width:720px}
+  .notice{margin-top:20px;padding:12px 16px;border-left:3px solid var(--gold);background:#fffaf2a6;color:#75634c;font-size:13px;line-height:1.7}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:26px 0}
+  .stage-card{position:relative;text-align:left;border:1px solid var(--line);border-radius:18px;padding:22px 21px;background:#fffdf8;box-shadow:0 9px 24px #58361a0d;cursor:pointer;transition:.2s;color:inherit;min-height:180px}
+  .stage-card:hover:not(:disabled){transform:translateY(-3px);border-color:#d3b373;box-shadow:0 12px 30px #58361a18}
+  .stage-card:disabled{opacity:.58;cursor:not-allowed;background:#f5efe4}
+  .num{display:inline-flex;width:32px;height:32px;align-items:center;justify-content:center;border-radius:50%;background:#f5e8cf;color:#a27328;font-weight:800;margin-bottom:13px}
+  .stage-card h2{font-size:19px;color:var(--red);margin:0 0 9px}
+  .stage-card p{font-size:13px;color:#817367;line-height:1.65;margin:0}
+  .badge{position:absolute;right:16px;top:17px;color:#a47b3b;font-size:12px}
+  .quiz{display:none;background:#fffdf9;border:1px solid var(--line);border-radius:22px;padding:30px 34px;box-shadow:0 14px 36px #58361a12}
+  .quiz.on{display:block}
+  .quizhead{display:flex;align-items:center;gap:15px;margin-bottom:18px}
+  .quizhead h2{margin:0;color:var(--red);font-size:23px}
+  .step{margin-left:auto;color:#927d66;font-size:14px}
+  .progress{height:8px;background:#f0e7da;border-radius:9px;overflow:hidden;margin:12px 0 26px}
+  .progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,#a9202a,#e1b85f);transition:width .3s}
+  .question{font-size:23px;font-weight:700;line-height:1.6;margin:0 0 22px;color:#3b3028}
+  .answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .answer{display:flex;text-align:left;align-items:flex-start;gap:12px;padding:15px 17px;border:1px solid #e9dcc9;border-radius:12px;background:#fff;color:#4b4036;cursor:pointer;line-height:1.55;transition:.15s}
+  .answer:hover{border-color:#caa659;background:#fffaf0}
+  .letter{flex:0 0 25px;height:25px;display:inline-flex;align-items:center;justify-content:center;border-radius:50%;font-size:12px;background:#f3eadb;color:#916a2c;font-weight:800}
+  .answer.correct{border-color:#68a17f;background:#eff8f1;color:#286348}
+  .answer.wrong{border-color:#d47c73;background:#fff1ef;color:#9d3832}
+  .answer:disabled{cursor:default}
+  .feedback{display:none;margin-top:20px;padding:16px 18px;background:#f7f1e7;border-radius:12px;line-height:1.75;color:#5b4c3c}
+  .feedback.on{display:block}
+  .feedback strong{color:var(--red)}
+  .source{display:inline-block;margin-top:9px;color:#8a682f;font-size:13px;text-decoration:none;border-bottom:1px dotted #b79a65}
+  .source:hover{color:var(--red)}
+  .actions{display:flex;align-items:center;gap:12px;margin-top:22px}
+  .primary,.secondary{border:0;border-radius:24px;padding:12px 22px;cursor:pointer;font-weight:700}
+  .primary{background:linear-gradient(120deg,#92232b,#b63737);color:#fff;box-shadow:0 6px 14px #8d202a30}
+  .primary:hover{filter:brightness(1.06)}
+  .secondary{background:#f3eadb;color:#795b34}
+  .result{display:none;text-align:center;padding:25px 10px 5px}
+  .result.on{display:block}
+  .result .seal{width:76px;height:76px;border-radius:50%;display:grid;place-items:center;margin:0 auto 18px;background:#f4e5c8;color:#a57a2e;font-size:31px}
+  .result h2{color:var(--red);font-size:28px;margin:0 0 10px}
+  .result p{color:#746759;line-height:1.8;margin:0 auto 20px;max-width:590px}
+  .result .actions{justify-content:center}
+  .foot{margin-top:22px;text-align:center;font-size:12px;color:#9b8b76}
+  @media(max-width:760px){.top{padding:0 4vw;gap:10px}.tag{display:none}main{margin-top:28px}h1{font-size:34px}.cards{grid-template-columns:1fr}.stage-card{min-height:0}.quiz{padding:22px 17px}.answers{grid-template-columns:1fr}.question{font-size:20px}.quizhead h2{font-size:19px}}
+</style>
+</head>
+<body>
+  <header class="top">
+    <div class="brand">星火同行</div>
+    <div class="tag">知史明理 · 知行合一</div>
+    <button class="back" onclick="location.href='agent.html'">返回陪伴对话</button>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">青年理想信念成长课</div>
+      <h1>思政知识闯关</h1>
+      <div class="intro">从党史记忆出发，理解共同价值，再把所学带进真实生活。每关五道题，答对四题即可通关；答错也会显示解析与权威资料，随时可以重来。</div>
+      <div class="notice">进度保存在当前 Windows 用户的应用数据中，重启后可以继续。题目出处链接来自共产党员网、教育部、中国人大网和中央社会工作部等公开资料。</div>
+    </section>
+    <p id="saveStatus" role="status"></p><button id="retrySave" class="secondary" hidden onclick="retrySave()">重试保存进度</button>
+    <section class="cards" id="cards"></section>
+    <section class="quiz" id="quiz">
+      <div class="quizhead"><span class="num" id="levelNum">1</span><h2 id="levelTitle"></h2><span class="step" id="step"></span></div>
+      <div class="progress"><span id="progressBar"></span></div>
+      <div id="questionArea">
+        <h3 class="question" id="question"></h3>
+        <div class="answers" id="answers"></div>
+        <div class="feedback" id="feedback"></div>
+        <div class="actions"><button class="primary" id="nextBtn" onclick="nextQuestion()" style="display:none">下一题</button><button class="secondary" onclick="showMap()">返回关卡</button></div>
+      </div>
+      <div class="result" id="result">
+        <div class="seal" id="resultSeal">✓</div>
+        <h2 id="resultTitle"></h2>
+        <p id="resultText"></p>
+        <div class="actions" id="resultActions"></div>
+      </div>
+    </section>
+    <div class="foot">星火同行 · 青年思政陪伴平台</div>
+  </main>
+<script>
+const stages = [
+  {title:'初心启航',sub:'回望青年与党的历史坐标',questions:[
+    {q:'中国共产党第一次全国代表大会于哪一天在上海开幕？',options:['1921年7月23日','1921年7月1日','1922年5月5日','1919年5月4日'],answer:0,explain:'党的一大于1921年7月23日在上海开幕，最后一天会议转移到浙江嘉兴南湖举行。',url:'https://www.12371.cn/2023/02/27/ARTI1677462263657862.shtml',source:'共产党员网：一大召开时间考证'},
+    {q:'五四运动于哪一年爆发？',options:['1919年','1921年','1935年','1949年'],answer:0,explain:'五四运动于1919年5月4日在北京爆发，是以青年学生为主、各界群众广泛参与的爱国运动。',url:'https://www.ccdi.gov.cn/yaowenn/202605/t20260504_488646.html',source:'中央纪委国家监委网站：五四精神'},
+    {q:'中国青年团组织宣告成立的时间是？',options:['1922年5月5日','1921年7月23日','1919年5月4日','1949年10月1日'],answer:0,explain:'1922年5月5日，在中国共产党直接关怀和领导下，中国社会主义青年团第一次全国代表大会在广州开幕，青年团宣告成立。',url:'https://www.ccdi.gov.cn/yaowenn/202605/t20260504_488646.html',source:'中央纪委国家监委网站：共青团成立'},
+    {q:'每年7月1日是中国共产党的什么纪念日？',options:['党的成立纪念日','党的生日大会日','青年节','宪法日'],answer:0,explain:'党的一大实际开幕日经考证为1921年7月23日，7月1日是党的成立纪念日。',url:'https://www.12371.cn/2020/06/22/ARTI1592782411307946.shtml',source:'共产党员网：为何以7月1日为纪念日'},
+    {q:'五四运动孕育的伟大精神，主要包括哪四项？',options:['爱国、进步、民主、科学','团结、紧张、严肃、活泼','富强、民主、文明、和谐','奉献、友爱、互助、进步'],answer:0,explain:'五四运动孕育了以爱国、进步、民主、科学为主要内容的伟大五四精神，其核心是爱国主义精神。',url:'https://www.ccdi.gov.cn/toutiaon/202409/t20240930_378913_m.html',source:'中央纪委国家监委网站：弘扬伟大爱国主义精神'}
+  ]},
+  {title:'价值坐标',sub:'读懂社会主义核心价值观',questions:[
+    {q:'社会主义核心价值观中，国家层面的价值目标是？',options:['富强、民主、文明、和谐','自由、平等、公正、法治','爱国、敬业、诚信、友善','独立、自主、和平、发展'],answer:0,explain:'“富强、民主、文明、和谐”是国家层面的价值目标。',url:'https://www.moe.gov.cn/jyb_xwfb/s5148/201403/t20140318_165717.html',source:'教育部：围绕立德树人培育核心价值观'},
+    {q:'“自由、平等、公正、法治”属于哪个层面的价值取向？',options:['社会层面','国家层面','公民个人层面','家庭层面'],answer:0,explain:'“自由、平等、公正、法治”是社会层面的价值取向。',url:'https://www.moe.gov.cn/jyb_xwfb/s5148/201403/t20140318_165717.html',source:'教育部：社会主义核心价值观三个层面'},
+    {q:'社会主义核心价值观中，公民个人行为准则包括？',options:['爱国、敬业、诚信、友善','富强、民主、文明、和谐','自由、平等、公正、法治','创新、协调、绿色、开放'],answer:0,explain:'爱国、敬业、诚信、友善是公民个人层面的价值准则。',url:'https://www.moe.gov.cn/jyb_xwfb/s5148/201403/t20140318_165717.html',source:'教育部：社会主义核心价值观三个层面'},
+    {q:'《中华人民共和国宪法》第二十四条提出，国家倡导什么？',options:['社会主义核心价值观','消费主义价值观','个人英雄主义','网络流行文化'],answer:0,explain:'宪法第二十四条规定，国家倡导社会主义核心价值观，并提倡爱祖国、爱人民、爱劳动、爱科学、爱社会主义的公德。',url:'https://www.npc.gov.cn/c2/c30834/201905/t20190521_281393.html',source:'中国人大网：中华人民共和国宪法'},
+    {q:'在日常学习和交往中，“诚信”最直接的做法是？',options:['说到做到，真实守信','只挑轻松的任务','遇到分歧就回避','只关注个人得失'],answer:0,explain:'相关核心价值观解读指出，诚信体现在待人处事真诚、老实、讲信誉，做到言必行、行必果。',url:'https://www.nhc.gov.cn/shzyjzg/neihanjd/201403/dbcd009939ad45f694dd7d25e4ae0c7a.shtml',source:'国家卫生健康委：爱国敬业诚信友善'}
+  ]},
+  {title:'青春担当',sub:'把理想信念落实为身边行动',questions:[
+    {q:'中国青年志愿者精神的核心表述是？',options:['奉献、友爱、互助、进步','爱国、进步、民主、科学','勤奋、节俭、团结、创新','富强、民主、文明、和谐'],answer:0,explain:'青年志愿者精神包括奉献、友爱、互助、进步，鼓励青年服务他人、奉献社会。',url:'https://www.zyshgzb.gov.cn/n1/2025/1201/c459741-40615036.html',source:'中共中央社会工作部：志愿精神'},
+    {q:'团队作业中，怎样体现“敬业”和责任担当？',options:['按约定完成分工，遇到困难及时沟通','把难题留给其他组员','临近截止再临时拼凑','只做容易被看见的部分'],answer:0,explain:'立足本职、认真完成承担的任务，是把敬业落实到日常学习与集体协作中的具体行动。',url:'https://www.nhc.gov.cn/shzyjzg/neihanjd/201403/4cbc7a938531418db21090b0bbf16d22.shtml',source:'国家卫生健康委：爱国敬业诚信友善'},
+    {q:'同学遇到困难时，哪种做法更符合“友善”？',options:['先倾听，再在力所能及范围内提供帮助','当众嘲笑他的失误','不问情况就替他做决定','把他的困难当作谈资'],answer:0,explain:'友善意味着与人为善、团结友爱、和谐相处。尊重对方、先听需求，再提供适当帮助，体现了友善。',url:'https://www.nhc.gov.cn/shzyjzg/neihanjd/201403/dbcd009939ad45f694dd7d25e4ae0c7a.shtml',source:'国家卫生健康委：爱国敬业诚信友善'},
+    {q:'想让志愿服务真正帮助到社区，行动前更应该？',options:['了解服务对象的实际需要，再和团队做好分工','只按自己的想法安排活动','拍照打卡后马上离开','把任务全部交给组织者'],answer:0,explain:'志愿服务强调服务他人、奉献社会。先了解真实需求并做好协作，才能把善意转化为有效行动。',url:'https://www.zyshgzb.gov.cn/n1/2024/0926/c459388-40329095.html',source:'中共中央社会工作部：新时代志愿服务体系'},
+    {q:'青年面对学习和成长中的挫折，哪种做法更能体现理想信念与行动力？',options:['复盘问题，寻求支持，再完成一个可实行的小目标','认定一次失败就说明自己不行','把所有责任都推给别人','只等待状态变好，不采取行动'],answer:0,explain:'理想信念需要落实在持续行动中。把目标拆小、及时复盘并主动求助，既保护身心状态，也能一步步向前。',url:'https://www.moe.gov.cn/jyb_xwfb/s5148/201403/t20140318_165717.html',source:'教育部：核心价值观与青年成长'}
+  ]}
+];
+
+const $=id=>document.getElementById(id);
+const progressKey='xinghuo-quiz-progress-v1';
+let saved={unlocked:0,cleared:[]};
+
+saved.unlocked=Math.max(0,Math.min(stages.length-1,Number(saved.unlocked)||0));
+saved.cleared=Array.isArray(saved.cleared)?saved.cleared:[];
+let level=0,index=0,score=0,round=[];
+
+let saving=Promise.resolve();
+function persist(){
+  try{localStorage.setItem(progressKey,JSON.stringify(saved))}catch(e){}
+  const snapshot=JSON.stringify(saved);
+  saving=saving.catch(()=>{}).then(async()=>{
+    const res=await fetch('/api/progress',{method:'POST',headers:{'Content-Type':'application/json'},body:snapshot,keepalive:true});
+    if(!res.ok)throw new Error('进度保存失败');
+  }).catch(()=>{$('saveStatus').textContent='进度暂未写入应用，请保持窗口打开并点击重试。';$('retrySave').hidden=false});
+  return saving;
+}
+async function loadProgress(){
+  $('cards').textContent='正在读取学习进度…';
+  try{
+    const res=await fetch('/api/progress',{cache:'no-store'});if(!res.ok)throw new Error();
+    saved=await res.json();
+    let old={};try{old=JSON.parse(localStorage.getItem(progressKey)||'{}')}catch(e){}
+    if(old&&Array.isArray(old.cleared)){
+      saved.cleared=[...new Set([...saved.cleared,...old.cleared.filter(n=>Number.isInteger(n)&&n>=0&&n<3)])];
+      saved.unlocked=0;while(saved.cleared.includes(saved.unlocked)&&saved.unlocked<2)saved.unlocked++;
+      await persist();
+    }
+  }catch(e){$('saveStatus').textContent='暂时无法读取已保存的进度，请重启应用后继续。'}
+  renderCards();
+}
+async function retrySave(){
+  $('retrySave').hidden=true;$('saveStatus').textContent='';
+  await persist();
+}
+function renderCards(){
+  $('cards').innerHTML='';
+  stages.forEach((stage,i)=>{
+    const locked=i>saved.unlocked,cleared=saved.cleared.includes(i);
+    const b=document.createElement('button');b.className='stage-card';b.disabled=locked;b.onclick=()=>startLevel(i);
+    b.innerHTML=`<span class="num">${String(i+1).padStart(2,'0')}</span><span class="badge">${locked?'未解锁':cleared?'已通关':'可挑战'}</span><h2>${stage.title}</h2><p>${stage.sub}<br>五道题 · 答对四题通关</p>`;
+    $('cards').appendChild(b);
+  });
+}
+function showMap(){
+  $('quiz').classList.remove('on');$('cards').style.display='grid';
+  $('result').classList.remove('on');$('questionArea').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function startLevel(i){
+  if(i>saved.unlocked||i<0||i>=stages.length)return;
+  level=i;index=0;score=0;
+  round=stages[level].questions.map(q=>{
+    const choices=q.options.map((text,n)=>({text,correct:n===q.answer}));
+    for(let n=choices.length-1;n>0;n--){const j=Math.floor(Math.random()*(n+1));[choices[n],choices[j]]=[choices[j],choices[n]]}
+    return {...q,choices};
+  });
+  $('cards').style.display='none';$('quiz').classList.add('on');
+  $('result').classList.remove('on');$('questionArea').style.display='block';
+  $('levelNum').textContent=String(i+1);$('levelTitle').textContent=stages[i].title;
+  showQuestion();window.scrollTo({top:0,behavior:'smooth'});
+}
+function showQuestion(){
+  const q=round[index];
+  $('step').textContent=`第 ${index+1} / ${round.length} 题`;
+  $('progressBar').style.width=`${index/round.length*100}%`;
+  $('question').textContent=q.q;$('feedback').classList.remove('on');$('feedback').innerHTML='';$('nextBtn').style.display='none';
+  $('answers').innerHTML='';
+  q.choices.forEach((choice,n)=>{
+    const b=document.createElement('button');b.className='answer';
+    const letter=document.createElement('span');letter.className='letter';letter.textContent='ABCD'[n];
+    const label=document.createElement('span');label.textContent=choice.text;
+    b.append(letter,label);b.onclick=()=>choose(n,b);$('answers').appendChild(b);
+  });
+}
+function choose(n,selected){
+  if($('feedback').classList.contains('on'))return;
+  const q=round[index],right=q.choices[n].correct;
+  [...$('answers').children].forEach((b,i)=>{
+    b.disabled=true;if(q.choices[i].correct)b.classList.add('correct');
+  });
+  if(right){score++;selected.classList.add('correct')}
+  else selected.classList.add('wrong');
+  $('feedback').innerHTML=`<strong>${right?'回答正确':'再记住这一点'}</strong><br>${q.explain}<br><a class="source" href="${q.url}" target="_blank" rel="noopener">查看：${q.source}</a>`;
+  $('feedback').classList.add('on');$('nextBtn').style.display='inline-block';
+  $('nextBtn').textContent=index===round.length-1?'查看本关结果':'下一题';
+}
+function nextQuestion(){
+  if(!$('feedback').classList.contains('on'))return;
+  index++;if(index>=round.length)return finishLevel();
+  showQuestion();
+}
+function finishLevel(){
+  $('progressBar').style.width='100%';$('questionArea').style.display='none';$('result').classList.add('on');
+  const passed=score>=4;
+  $('resultSeal').textContent=passed?'✓':'↻';
+  $('resultTitle').textContent=passed?'本关通关':'再来一次';
+  $('resultText').textContent=passed?`你答对了 ${score} / ${round.length} 题。知识点不只在书本里，也可以成为面对生活时的方向。${level===stages.length-1?'全部关卡已完成，继续把所学用在生活中吧！':'下一关已为你解锁。'}`:`你答对了 ${score} / ${round.length} 题。看看解析中的权威资料，再挑战一次就能通关。`;
+  if(passed){if(!saved.cleared.includes(level))saved.cleared.push(level);saved.unlocked=Math.max(saved.unlocked,Math.min(level+1,stages.length-1));persist();renderCards()}
+  const actions=$('resultActions');actions.innerHTML='';
+  const again=document.createElement('button');again.className='secondary';again.textContent='重玩本关';again.onclick=()=>startLevel(level);actions.appendChild(again);
+  if(passed&&level<stages.length-1){const next=document.createElement('button');next.className='primary';next.textContent='进入下一关';next.onclick=()=>startLevel(level+1);actions.appendChild(next)}
+  const map=document.createElement('button');map.className='secondary';map.textContent='关卡地图';map.onclick=showMap;actions.appendChild(map);
+}
+loadProgress();
+</script>
+</body>
+</html>

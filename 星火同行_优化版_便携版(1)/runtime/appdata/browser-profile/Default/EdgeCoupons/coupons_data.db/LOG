@@ -1,0 +1,6 @@
+2026/10/12-22:32:41.897 1de4 Reusing MANIFEST C:\Users\liuso\AppData\Local\XinghuoTongxing\browser-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/10/12-22:32:41.903 1de4 Recovering log #19
+2026/10/12-22:32:41.907 1de4 Reusing old log C:\Users\liuso\AppData\Local\XinghuoTongxing\browser-profile\Default\EdgeCoupons/coupons_data.db/000019.log 
+2026/10/12-22:32:42.095 5fbc Level-0 table #24: started
+2026/10/12-22:32:42.107 5fbc Level-0 table #24: 683444 bytes OK
+2026/10/12-22:32:42.110 5fbc Delete type=0 #19

@@ -1,0 +1,15 @@
+2026/10/12-22:29:53.871 7678 Reusing MANIFEST C:\Users\liuso\AppData\Local\XinghuoTongxing\browser-profile\Default\EdgeCoupons/coupons_data.db/MANIFEST-000001
+2026/10/12-22:29:53.875 7678 Recovering log #16
+2026/10/12-22:29:53.878 7678 Reusing old log C:\Users\liuso\AppData\Local\XinghuoTongxing\browser-profile\Default\EdgeCoupons/coupons_data.db/000016.log 
+2026/10/12-22:29:53.930 88a0 Level-0 table #20: started
+2026/10/12-22:29:53.937 88a0 Level-0 table #20: 683444 bytes OK
+2026/10/12-22:29:53.939 88a0 Delete type=0 #16
+2026/10/12-22:29:53.940 88a0 Compacting 4@0 + 1@1 files
+2026/10/12-22:29:53.947 88a0 Generated table #21@0: 4 keys, 683352 bytes
+2026/10/12-22:29:53.947 88a0 Compacted 4@0 + 1@1 files => 683352 bytes
+2026/10/12-22:29:53.948 88a0 compacted to: files[ 0 1 1 0 0 0 0 ]
+2026/10/12-22:29:53.949 88a0 Delete type=2 #8
+2026/10/12-22:29:53.949 88a0 Delete type=2 #11
+2026/10/12-22:29:53.949 88a0 Delete type=2 #14
+2026/10/12-22:29:53.949 88a0 Delete type=2 #17
+2026/10/12-22:29:53.949 88a0 Delete type=2 #20

@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>星火同行 · 楚晚晴动态形象</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden;font-family:"PingFang SC","Microsoft YaHei",sans-serif}
+  body{
+    background:
+      linear-gradient(rgba(255,255,255,.12), rgba(255,255,255,.12)),
+      url('background.jpg?v=2') center/cover no-repeat fixed;
+    display:flex;align-items:center;justify-content:center;position:relative;
+  }
+
+  /* 舞台容器 */
+  .stage{position:relative;height:92vh;aspect-ratio:3/4;max-width:80vw;display:flex;align-items:flex-end;justify-content:center}
+  /* 地面光圈 */
+  .halo{position:absolute;bottom:2vh;width:70%;height:60px;
+    background:radial-gradient(ellipse,rgba(255,210,140,.65),transparent 70%);
+    filter:blur(6px);animation:halob 4s ease-in-out infinite}
+  @keyframes halob{0%,100%{opacity:.6;transform:scaleX(1)}50%{opacity:.9;transform:scaleX(1.1)}}
+
+  /* 角色图：呼吸 + 微摇摆 + 说话时轻跳 */
+  .char{position:relative;height:100%;z-index:3;transform-origin:bottom center;
+    filter:drop-shadow(0 18px 28px rgba(120,90,40,.28));
+    animation:idle 5s ease-in-out infinite}
+  .char.talk{animation:talkbob .5s ease-in-out infinite}
+  @keyframes idle{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-10px) rotate(1deg)}}
+  @keyframes talkbob{0%,100%{transform:translateY(0) rotate(-.5deg)}50%{transform:translateY(-6px) rotate(.5deg)}}
+  .char img{height:100%;display:block;animation:hueflow 8s linear infinite}
+  @keyframes hueflow{0%,100%{filter:brightness(1.02) saturate(1.05)}50%{filter:brightness(1.08) saturate(1.12)}}
+
+  /* 眼部光点（模拟眼神闪动） */
+  .eyeglow{position:absolute;z-index:4;pointer-events:none;
+    width:8px;height:8px;border-radius:50%;background:#fff;
+    box-shadow:0 0 12px 4px rgba(255,255,255,.9);opacity:0}
+  .eyeglow.l{top:32%;left:34%}
+  .eyeglow.r{top:32%;left:50%}
+  .eyeglow.on{animation:eyeflash 3.4s ease-in-out infinite}
+  @keyframes eyeflash{0%,80%,100%{opacity:0;transform:scale(.6)}85%,95%{opacity:1;transform:scale(1.4)}}
+
+  /* 应援棒光晕（原图麦克风当应援棒用，叠光晕） */
+  .wandglow{position:absolute;z-index:4;pointer-events:none;
+    bottom:30%;right:24%;width:80px;height:80px;border-radius:50%;
+    background:radial-gradient(circle,rgba(255,235,160,.85),transparent 65%);
+    animation:wandp 1.6s ease-in-out infinite}
+  @keyframes wandp{0%,100%{opacity:.55;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+
+  /* 花瓣飘落 */
+  .petal{position:absolute;top:-30px;z-index:2;border-radius:50% 0;opacity:.85;pointer-events:none;animation:fall linear infinite}
+  @keyframes fall{0%{transform:translateY(-30px) rotate(0)}100%{transform:translateY(100vh) rotate(540deg)}}
+
+  /* 闪光星 */
+  .star{position:absolute;z-index:2;color:#fff;pointer-events:none;animation:twk ease-in-out infinite}
+  @keyframes twk{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:1;transform:scale(1)}}
+
+  /* 说话时喷出的心/星 */
+  .pop{position:absolute;z-index:5;font-size:22px;pointer-events:none;animation:popu 1.6s ease-out forwards}
+  @keyframes popu{0%{opacity:0;transform:translateY(0) scale(.3)}20%{opacity:1;transform:translateY(-30px) scale(1.2)}100%{opacity:0;transform:translateY(-140px) scale(.6)}}
+
+  /* 对话气泡 */
+  /* 对话气泡：固定在角色下巴以下，向上生长有限制，不遮挡面部 */
+  .bubble{position:absolute;bottom:9%;left:2%;z-index:6;max-width:300px;max-height:50%;
+    overflow:auto;overscroll-behavior:contain;
+    background:#fff;border:2px solid #ffd98a;border-radius:20px;padding:14px 20px;
+    box-shadow:0 12px 30px rgba(180,140,60,.25);font-size:17px;line-height:1.6;color:#5a4a2a;
+    opacity:0;transform:translateY(10px) scale(.85);transition:all .4s cubic-bezier(.2,1.4,.4,1)}
+  .bubble.on{opacity:1;transform:translateY(0) scale(1)}
+  .bubble:after{content:"";position:absolute;top:-19px;right:56px;width:0;height:0;
+    border:11px solid transparent;border-bottom-color:#fff;border-top:0}
+  .bubble:before{content:"";position:absolute;top:-23px;right:53px;width:0;height:0;
+    border:14px solid transparent;border-bottom-color:#ffd98a;border-top:0}
+  .bubble::-webkit-scrollbar{width:6px}
+  .bubble::-webkit-scrollbar-thumb{background:#ffd98a66;border-radius:6px}
+
+  /* 姓名/身份卡 */
+  .badge{position:absolute;top:26px;left:28px;z-index:10;
+    background:linear-gradient(120deg,#fff,#fff4dc);border:1.5px solid #ffd98a;
+    border-radius:14px;padding:12px 20px;box-shadow:0 8px 24px rgba(180,140,60,.2)}
+  .badge .nm{font-size:22px;font-weight:700;color:#b8841f;letter-spacing:2px}
+  .badge .ttl{font-size:12px;color:#9a7a3a;margin-top:3px;letter-spacing:1px}
+
+  /* 控制条 */
+  .ctrl{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:10;
+    display:flex;gap:10px;flex-wrap:wrap;justify-content:center;max-width:92vw}
+  .ctrl button{cursor:pointer;border:none;border-radius:30px;padding:12px 20px;font-size:15px;
+    font-weight:600;color:#fff;background:linear-gradient(120deg,#ff9d5c,#ffb74d);
+    box-shadow:0 6px 16px rgba(220,130,50,.35);transition:transform .15s}
+  .ctrl button:hover{transform:translateY(-2px)}
+  .ctrl button.alt{background:linear-gradient(120deg,#6cb6ff,#4f9bf0)}
+  .ctrl input{flex:1;min-width:200px;border:2px solid #ffd98a;border-radius:30px;padding:10px 18px;font-size:15px;outline:none;background:#fff}
+</style>
+</head>
+<body>
+  <div class="badge">
+    <div class="nm">楚晚晴</div>
+    <div class="ttl">星火同行 · 青年成长伙伴 · 积极正向</div>
+    <div id="voiceHint" style="font-size:11px;color:#b07030;margin-top:4px;max-width:280px;line-height:1.4">音色加载中…</div>
+    <div style="font-size:10px;color:#a07a3a;margin-top:4px;max-width:280px;line-height:1.4">角色语音片段已随程序打包，点击按钮即可收听。</div>
+  </div>
+
+  <div class="stage" id="stage">
+    <div class="halo"></div>
+    <div class="wandglow"></div>
+    <div class="eyeglow l" id="egl"></div>
+    <div class="eyeglow r" id="egr"></div>
+    <div class="char" id="char">
+      <img src="character.png?v=2" alt="楚晚晴">
+    </div>
+    <div class="bubble" id="bubble"></div>
+  </div>
+
+  <div class="ctrl">
+    <input id="txt" placeholder="输入一句话让她说…" autocomplete="off">
+    <button onclick="sayIt()">让她说</button>
+    <button class="alt" onclick="quickSay()">随机鼓励</button>
+  </div>
+
+<script>
+  // 花瓣 & 闪光生成
+  const petalCols=['#ffd98a','#ffb3c7','#a8d8ff','#fff3b0','#c9a3ff','#7fd9a0'];
+  const stage=document.getElementById('stage');
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div');p.className='petal';
+    const s=6+Math.random()*10;
+    p.style.left=Math.random()*100+'vw';
+    p.style.width=s+'px';p.style.height=s*1.6+'px';
+    p.style.background=petalCols[i%petalCols.length];
+    p.style.animationDuration=(6+Math.random()*7)+'s';
+    p.style.animationDelay=(-Math.random()*10)+'s';
+    p.style.opacity=.5+Math.random()*.4;
+    document.body.appendChild(p);
+  }
+  for(let i=0;i<14;i++){
+    const s=document.createElement('div');s.className='star';s.textContent='✦';
+    s.style.left=Math.random()*100+'vw';s.style.top=Math.random()*100+'vh';
+    s.style.fontSize=(10+Math.random()*14)+'px';
+    s.style.color=['#fff','#ffe9a8','#ffd1dc'][i%3];
+    s.style.animationDuration=(1.8+Math.random()*2)+'s';
+    s.style.animationDelay=(-Math.random()*3)+'s';
+    document.body.appendChild(s);
+  }
+  // 眼神闪光
+  document.getElementById('egl').classList.add('on');
+  document.getElementById('egr').classList.add('on');
+
+  // 鼓励语库；角色语音文件随应用一起发布
+  const lines=[
+    {t:"嘿！我是楚晚晴——你的成长应援团！",a:"voice/v00.mp3"},
+    {t:"你今天已经超棒啦，再往前一点点就好。",a:"voice/v01.mp3"},
+    {t:"迈过去，那座山就成了你眼里的风景。",a:"voice/v02.mp3"},
+    {t:"一个小目标，现在就动手，剩下交给时间。",a:"voice/v03.mp3"},
+    {t:"你不是分母，你是自己故事的主角。",a:"voice/v04.mp3"},
+    {t:"累的时候，停一停不算放弃，是为了走更远。",a:"voice/v05.mp3"},
+    {t:"你想成为谁，从今天这一步开始。",a:"voice/v06.mp3"}
+  ];
+
+  const bubble=document.getElementById('bubble');
+  const char=document.getElementById('char');
+  let sayTimer=null,popTimer=null,curAudio=null;
+
+  // 播放角色语音片段；文件不可用时回退浏览器语音
+  function playAudio(url,text){
+    if(curAudio){try{curAudio.pause();}catch(e){}curAudio=null;}
+    const a=new Audio(url);curAudio=a;let usedFB=false;
+    const fb=()=>{if(usedFB)return;usedFB=true;speak(text);};
+    a.addEventListener('playing',()=>char.classList.add('talk'));
+    a.addEventListener('ended',()=>{char.classList.remove('talk');clearInterval(popTimer);bubble.classList.remove('on');});
+    a.addEventListener('error',fb);
+    a.play().catch(fb);
+  }
+
+  // ===== TTS 甜美语音（参考豆包音色：甜美女声）=====
+  const synth=window.speechSynthesis;
+  let zhVoice=null;
+  // 优先甜美女神经声（含 Online/Natural 在线神经声），坚决避开惠惠/含含等旧Desktop声
+  const preferNames=['Xiaoyi','Xiaoxiao','Xiaomeng','Xiaochen','Xiaohan','Xiaorui','Xiaoyou','Xiaoshuang','Xiaoyan','Xiaoqiu','Yaoyao','Online','Natural','晓伊','晓晓','晓梦','晓悠'];
+  function pickVoice(){
+    const vs=synth?synth.getVoices():[];
+    if(!vs.length){setHint(null);return;}
+    const zh=vs.filter(v=>/zh|cmn/i.test(v.lang));
+    if(!zh.length){zhVoice=null;setHint(null);return;}
+    for(const n of preferNames){
+      const v=zh.find(v=>v.name&&v.name.toLowerCase().includes(n.toLowerCase()));
+      if(v){zhVoice=v;setHint(v,false);return;}
+    }
+    const nonOld=zh.filter(v=>!/desktop|huihui|hanhan/i.test(v.name));
+    if(nonOld.length){zhVoice=nonOld[0];setHint(zhVoice,false);return;}
+    zhVoice=zh[0];setHint(zhVoice,true); // 只剩惠惠等旧声
+  }
+  function setHint(v,isOld){
+    const el=document.getElementById('voiceHint');
+    if(!el)return;
+    if(!v){el.textContent='（无可用中文音色）';return;}
+    el.textContent='当前音色: '+v.name+(isOld?'  ⚠ 偏老，见下方解决':'');
+  }
+  pickVoice();
+  if(synth){
+    if('onvoiceschanged' in synth) synth.onvoiceschanged=pickVoice;
+    if('addEventListener' in synth) synth.addEventListener('voiceschanged',pickVoice);
+  }
+
+  // 注：浏览器 Web Speech 无法加载"林志玲语音包"（商业付费版权，无公共免费API）。
+  // 此处已把内置TTS调到最柔甜的"志玲风"档位。若你有志玲的逐句音频文件，
+  // 可在 phrases 里给每句配一个 mp3 路径，用 new Audio(p.mp3).play() 替代 synth.speak。
+  function speak(text){
+    if(!synth){return false;}
+    try{synth.cancel();}catch(e){}
+    const spoken=String(text).replace(/[\p{P}\p{S}\u{200D}\u{FE0F}\u{20E3}]/gu,' ').replace(/\s+/g,' ').trim();
+    if(!spoken)return false;
+    const u=new SpeechSynthesisUtterance(spoken);
+    u.lang='zh-CN';
+    if(zhVoice) u.voice=zhVoice;
+    u.pitch=1.45;  // 提音调 → 柔甜少女风（志玲风近似）
+    u.rate=0.92;   // 放慢 → 温柔不急
+    u.volume=1;
+    u.onstart=()=>{ char.classList.add('talk'); };
+    u.onend=()=>{ char.classList.remove('talk'); clearInterval(popTimer); bubble.classList.remove('on'); };
+    u.onerror=()=>{ char.classList.remove('talk'); clearInterval(popTimer); };
+    synth.speak(u);
+    return true;
+  }
+
+  function spawnPop(){
+    const el=document.createElement('div');el.className='pop';
+    el.textContent=['★','♥','✦','✿'][Math.floor(Math.random()*4)];
+    el.style.left=(38+Math.random()*24)+'%';
+    el.style.bottom=(30+Math.random()*25)+'%';
+    el.style.color=['#ff9d5c','#ffb3c7','#ffd98a','#7fd9a0'][Math.floor(Math.random()*4)];
+    stage.appendChild(el);
+    setTimeout(()=>el.remove(),1700);
+  }
+
+  function say(text,audio){
+    bubble.textContent=text;bubble.classList.add('on');
+    clearInterval(popTimer);
+    let i=0;popTimer=setInterval(()=>{if(i++<16)spawnPop()},180);
+    if(audio){ playAudio(audio,text); }   // 有真音色→放MP3
+    else{ const spoke=speak(text); }       // 否则TTS
+    clearTimeout(sayTimer);
+    sayTimer=setTimeout(()=>{
+      bubble.classList.remove('on');char.classList.remove('talk');clearInterval(popTimer);
+    },audio?15000:Math.max(4000,text.length*220));
+  }
+  function sayIt(){const v=document.getElementById('txt').value.trim();if(v)say(v);}      // 用户输入→TTS
+  function quickSay(){const p=lines[Math.floor(Math.random()*lines.length)];say(p.t,p.a);} // 随机鼓励→真音色
+  document.getElementById('txt').addEventListener('keydown',e=>{if(e.key==='Enter')sayIt();});
+
+  // 进场自动问候
+  setTimeout(()=>{const p=lines[0];say(p.t,p.a);},700);
+</script>
+</body>
+</html>

@@ -7,3 +7,6 @@ chuwangqing_pv/楚晚晴_角色PV_2min_1080p_双端版.mp4
 # Python 缓存
 __pycache__/
 *.pyc
+
+# 本地服务自动生成的密钥
+星火同行_优化版_便携版(1)/runtime/ollama-home/id_ed25519*
